@@ -22,8 +22,8 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         try:
-            numeric_feature = ['reading score',	'writing score']
-            cat_feature = ["gender", "race/ethnicity", "parental level of education", "lunch", "test preparation course"]
+            numeric_feature = ['reading_score',	'writing_score']
+            cat_feature = ['gender', 'race_ethnicity', 'parental_level_of_education', 'lunch', 'test_preparation_course']
 
             num_pipeline = Pipeline(
                 steps=[
@@ -59,13 +59,15 @@ class DataTransformation:
         try:
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
+            train_df.columns = train_df.columns.str.strip()
+            test_df.columns = test_df.columns.str.strip()
 
             logging.info("Readed the Train and Test data")
 
             preprocessiong_obj = self.get_data_transformer_object()
 
-            target_column_name = "math score"
-            numerical_column = ["writing score", "reading score"]
+            target_column_name = "math_score"
+
 
             input_feature_train_df=train_df.drop(columns=[target_column_name], axis=1)
             target_feature_train_df=train_df[target_column_name]
@@ -91,7 +93,7 @@ class DataTransformation:
                 obj=preprocessiong_obj
             )
 
-            return( train_arr, test_arr, self.data_transformation_config.preprocessor_obj_file_path)
+            return(train_arr, test_arr, self.data_transformation_config.preprocessor_obj_file_path)
 
         except Exception as e:
             raise CutsomException(e,sys)
