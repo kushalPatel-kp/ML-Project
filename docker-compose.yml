@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   django_ml_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: django_ml_app
     volumes:
       - .:/app
@@ -18,9 +16,10 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
+    user: root
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock  # So Jenkins can run Docker commands
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   jenkins_home:
