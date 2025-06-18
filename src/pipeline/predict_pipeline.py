@@ -1,6 +1,7 @@
 import sys
 from src.logger import logging
 import pandas as pd
+import os
 import numpy as np
 from src.exception import CutsomException
 from src.utils import load_object
@@ -11,8 +12,8 @@ class PredictPipeline:
 
     def predict(self,feature):
         try:
-            model_path = 'artifacts\model.pkl'
-            preprocessor_path = 'artifacts\preprocessor.pkl'
+            model_path = os.path.join("artifacts", "model.pkl")
+            preprocessor_path = os.path.join("artifacts" , "preprocessor.pkl")
             model=load_object(file_path=model_path)
             preprocessor=load_object(file_path=preprocessor_path)
             data_scaled = preprocessor.transform(feature)
@@ -20,7 +21,7 @@ class PredictPipeline:
 
             return preds 
         except Exception as e:
-            raise CustomData(e,sys)
+            raise CutsomException(e,sys)
 
 
 class CustomData:

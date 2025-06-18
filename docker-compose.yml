@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  mlapp:
+    container_name: django_ml_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app     # ✅ Live code update from your local to container
+    command: python manage.py runserver 0.0.0.0:8000

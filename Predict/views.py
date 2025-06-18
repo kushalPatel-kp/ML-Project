@@ -14,13 +14,13 @@ class ModelPrediction(APIView):
             print(data['gender'])
 
             custom_data = CustomData(
-                gender=data['gender'],
-                race_ethnicity=data['race_ethnicity'],
-                parental_level_of_education=data['parental_level_of_education'],
-                lunch=data['lunch'],
-                test_preparation_course=data['test_preparation_course'],
-                reading_score=data['reading_score'],
-                writing_score=data['writing_score']
+                gender=data["gender"],
+                race_ethnicity=data["race_ethnicity"],
+                parental_level_of_education=data["parental_level_of_education"],
+                lunch=data["lunch"],
+                test_preparation_course=data["test_preparation_course"],
+                reading_score=data["reading_score"],
+                writing_score=data["writing_score"]
             )
             pred_df = custom_data.get_data_as_data_frame()
             print(pred_df)
