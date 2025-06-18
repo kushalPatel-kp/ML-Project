@@ -1,13 +1,26 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  mlapp:
-    container_name: django_ml_app
+  django_ml_app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: django_ml_app
+    volumes:
+      - .:/app
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app     # ✅ Live code update from your local to container
     command: python manage.py runserver 0.0.0.0:8000
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # So Jenkins can run Docker commands
+
+volumes:
+  jenkins_home:
